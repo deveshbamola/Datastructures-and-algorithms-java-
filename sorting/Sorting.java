@@ -101,10 +101,74 @@ class Sorting
 		}
 	}
 	
-	// Merge Sort
-	void mergeSort(int[] arr)
+	// Heap Sort
+	void heapify(int[] arr,int length,  int root)
 	{
+		int largest = root;
+		int left = 2*root +1;
+		int right = 2*root +2;
 		
+		if(left < length && arr[left] > arr[largest])
+			largest = left;
+		if(right < length && arr[right] > arr[largest])
+			largest = right;
+		if(largest != root)
+		{
+			int temp = arr[root];
+			arr[root] = arr[largest];
+			arr[largest] = temp;
+			
+			heapify(arr, length, largest);
+		}
+	}
+	
+	void heapSort(int[] arr)
+	{
+		int length = arr.length;
+		for(int i = length/2 -1 ; i >= 0 ; i--)
+			heapify(arr, length,  i);
+		
+		for(int i = arr.length -1; i > 0 ; i--)
+		{
+			int temp = arr[i];
+			arr[i] = arr[0];
+			arr[0] = temp;
+			
+			heapify(arr, i, 0);
+		}
+		for ( int i = 0 ; i < length; i++)
+			System.out.println(arr[i]);
+		System.out.println();
+		
+	}
+	
+	// count sort
+	void countSort(int[] arr)
+	{
+		int length = arr.length;
+		int max = arr[0];
+		for(int i = 0 ; i < length ; i++)
+		{
+			if(arr[i] > max)
+				max = arr[i];
+		}
+		int[] count = new int[max + 1];
+		int[] output = new int[length];
+		
+		for(int i = 0 ; i < length ; i++)
+			count[arr[i]]++;
+		
+		for(int i = 1 ; i <= max ; i++)
+			count[i] += count[i-1];
+		
+		for(int i = length -1 ; i>=0; i--)
+		{
+			output[count[arr[i]] - 1] = arr[i];
+			count[arr[i]]--;
+		}
+		for ( int i = 0 ; i < length; i++)
+			System.out.println(output[i]);
+		System.out.println();
 	}
 	
 	// main function
@@ -120,9 +184,9 @@ class Sorting
 							+ "2.Selection sort\n"
 							+ "3.Insertion sort\n"
 							+ "4.Quick sort\n"
-							+ "5.Merge sort\n"
-							+ "6.Heap sort\n"
-							+ "7.Count sort\n"
+							+ "5.Heap sort\n"
+							+ "6.Count sort\n"
+							+ "7.Merge sort\n"
 			                                + "8.Exit");
 			
 			int option = scan.nextInt();
@@ -149,7 +213,10 @@ class Sorting
 						System.out.println(arr[i]);
 		                            System.out.println();
 				break;
-				case 5: sort.mergeSort(arr);
+				case 5: sort.heapSort(arr);
+				break;
+				case 6: sort.countSort(arr);
+				break;
 				default : System.out.println("Invalid choice");
 				break;
 			}

@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 class Sorting
 {
+	//Bubble sort
 	void bubbleSort(int[] arr)
 	{
 		int length = arr.length;
@@ -23,6 +24,7 @@ class Sorting
 		System.out.println();
 	}
 	
+	//Selection Sort
 	void selectionSort(int[] arr)
 	{
 		int length = arr.length;
@@ -44,6 +46,7 @@ class Sorting
 		System.out.println();
 	}
 	
+	// Insertion Sort
 	void insertionSort(int[] arr)
 	{
 		int length = arr.length;
@@ -65,6 +68,46 @@ class Sorting
 		System.out.println();
 	}
 	
+	// Quick Sort
+	int partition(int[] arr, int low, int high)
+	{
+		int sorted = arr[low];
+		int last = high + 1;
+		for ( int i = high ; i != 0 ; i -- )
+		{
+			if(arr[i] > sorted)
+			{
+				last--;
+				int temp = arr[last];
+				arr[last] = arr[i];
+				arr[i] = temp;
+			}
+		}
+		int temp = arr[last - 1];
+		arr[last - 1] = sorted;
+		arr[low] = temp;
+		
+		return last - 1;
+	}
+	
+	void quickSort(int[] arr, int low, int high)
+	{
+		if(low < high)
+		{
+			int center = partition(arr, low, high);
+			
+			quickSort(arr,low, center-1);
+			quickSort(arr, center+1, high);
+		}
+	}
+	
+	// Merge Sort
+	void mergeSort(int[] arr)
+	{
+		
+	}
+	
+	// main function
 	public static void main(String[] args)
 	{
 		Sorting sort = new Sorting();
@@ -76,10 +119,14 @@ class Sorting
 							+ "1.Bubble sort\n"
 							+ "2.Selection sort\n"
 							+ "3.Insertion sort\n"
-			                                + "4.Exit");
+							+ "4.Quick sort\n"
+							+ "5.Merge sort\n"
+							+ "6.Heap sort\n"
+							+ "7.Count sort\n"
+			                                + "8.Exit");
 			
 			int option = scan.nextInt();
-			if(option == 4)
+			if(option == 8)
 				System.exit(0);
 			
 			System.out.print("Enter the size of the array : ");
@@ -97,6 +144,12 @@ class Sorting
 				break;
 				case 3: sort.insertionSort(arr);
 				break;
+				case 4: sort.quickSort(arr, 0 , n-1);
+				            for ( int i = 0 ; i < arr.length; i++)
+						System.out.println(arr[i]);
+		                            System.out.println();
+				break;
+				case 5: sort.mergeSort(arr);
 				default : System.out.println("Invalid choice");
 				break;
 			}

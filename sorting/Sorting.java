@@ -19,9 +19,6 @@ class Sorting
 			}
 		
 		}
-		for ( int i = 0 ; i < length; i++)
-			System.out.println(arr[i]);
-		System.out.println();
 	}
 	
 	//Selection Sort
@@ -41,9 +38,6 @@ class Sorting
 				}
 			}
 		}
-		for ( int i = 0 ; i < length; i++)
-			System.out.println(arr[i]);
-		System.out.println();
 	}
 	
 	// Insertion Sort
@@ -63,9 +57,6 @@ class Sorting
 			}
 			arr[j+1] = key;
 		}
-		for ( int i = 0 ; i < length; i++)
-			System.out.println(arr[i]);
-		System.out.println();
 	}
 	
 	// Quick Sort
@@ -136,10 +127,6 @@ class Sorting
 			
 			heapify(arr, i, 0);
 		}
-		for ( int i = 0 ; i < length; i++)
-			System.out.println(arr[i]);
-		System.out.println();
-		
 	}
 	
 	// count sort
@@ -167,8 +154,26 @@ class Sorting
 			count[arr[i]]--;
 		}
 		for ( int i = 0 ; i < length; i++)
-			System.out.println(output[i]);
-		System.out.println();
+			arr[i] = output[i];
+	}
+	
+	// shell sort
+	void shellSort(int[] arr)
+	{
+		int length = arr.length;
+		for(int gap = length/2 ; gap > 0 ; gap = gap /2)
+		{
+			for(int i = gap ; i < length ; i++)
+			{
+				int temp = arr[i];
+				int j;
+				for(j = i ; j >=gap && arr[j-gap] > temp ; j = j - gap )
+				{
+					arr[j] = arr[j - gap];
+				}
+				arr[j] = temp;
+			}
+		}
 	}
 	
 	// main function
@@ -186,7 +191,7 @@ class Sorting
 							+ "4.Quick sort\n"
 							+ "5.Heap sort\n"
 							+ "6.Count sort\n"
-							+ "7.Merge sort\n"
+							+ "7.shellSort\n"
 			                                + "8.Exit");
 			
 			int option = scan.nextInt();
@@ -211,16 +216,19 @@ class Sorting
 				case 4: sort.quickSort(arr, 0 , n-1);
 				            for ( int i = 0 ; i < arr.length; i++)
 						System.out.println(arr[i]);
-		                            System.out.println();
 				break;
 				case 5: sort.heapSort(arr);
 				break;
 				case 6: sort.countSort(arr);
 				break;
+				case 7: sort.shellSort(arr);
+				break;
 				default : System.out.println("Invalid choice");
 				break;
 			}
+			for ( int i = 0 ; i < arr.length; i++)
+				System.out.println(arr[i]);
+			System.out.println();
 		}
-		
 	}
 }

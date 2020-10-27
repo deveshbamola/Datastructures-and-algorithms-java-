@@ -176,6 +176,99 @@ class Sorting
 		}
 	}
 	
+	// radix sort
+	void countSortForRadix(int[] arr, int exp)
+	{
+		int length = arr.length;
+		int[] output = new int[length];
+		int[] count = new int[10];
+		
+		for(int i = 0 ; i < length ; i++)
+			count[(arr[i]/exp) % 10]++;
+		for(int i = 1 ; i < 10 ; i++)
+			count[i] += count[i - 1];
+		for(int i = length - 1; i >=0 ; i--)
+		{
+			output[count[(arr[i]/exp) % 10]-1] = arr[i];
+			count[(arr[i] / exp) % 10]--;
+		}
+		for(int i = 0 ; i < length ; i++)
+			arr[i] = output[i];
+	}
+	
+	void radixSort(int[] arr)
+	{
+		int length = arr.length;
+		int max = arr[0];
+		
+		for(int i = 0 ; i < length; i++)
+		{
+			if(max < arr[i])
+				max = arr[i];
+		}
+		for( int exp = 1; max/exp > 0; exp = exp * 10)
+		{
+			countSortForRadix(arr, exp);
+		}
+	}
+	
+	// merge sort
+	
+	void merge(int[] arr, int left, int mid, int right)
+	{
+		int leftSize = mid - left + 1;
+		int rightSize = right - mid;
+		
+		int Left[] = new int[leftSize];
+		int Right[] = new int[rightSize];
+		
+		for(int i = 0 ; i < leftSize ; i++)
+			Left[i] = arr[left + i];
+		for(int i = 0 ; i < rightSize ; i++)
+			Right[i] = arr[mid + i + 1];
+		int i = 0;
+		int j = 0;
+		int k = left;
+		while(i < leftSize && j < rightSize)
+		{
+			if(Left[i] <= Right[j])
+			{
+				arr[k] = Left[i];
+				i++;
+			}
+			else
+			{
+				arr[k] = Right[j];
+				j++;
+			}
+			k++;
+		}
+		while(i < leftSize)
+		{
+			arr[k] = Left[i];
+			i++;
+			k++;
+		}
+		while(j < rightSize)
+		{
+			arr[k] = Right[j];
+			j++;
+			k++;
+		}
+	}
+	
+	void mergeSort(int[] arr, int left, int right)
+	{
+		if(left < right)
+		{
+			int mid = (left + right) / 2;
+			mergeSort(arr, left , mid);
+			mergeSort(arr, mid + 1, right);
+			
+			merge(arr, left, mid, right);
+		}
+	}
+	
 	// main function
 	public static void main(String[] args)
 	{
@@ -191,12 +284,19 @@ class Sorting
 							+ "4.Quick sort\n"
 							+ "5.Heap sort\n"
 							+ "6.Count sort\n"
-							+ "7.shellSort\n"
-			                                + "8.Exit");
+							+ "7.Shell sort\n"
+							+ "8.Radix sort\n"
+			                                + "9.Merge sort\n"
+							+ "10.Exit");
 			
 			int option = scan.nextInt();
-			if(option == 8)
+			if(option == 10)
 				System.exit(0);
+			if(option < 1 || option > 10)
+			{
+				System.out.println("choice between 1-10\n");
+				continue;
+			}
 			
 			System.out.print("Enter the size of the array : ");
 			int n = scan.nextInt();
@@ -222,6 +322,10 @@ class Sorting
 				case 6: sort.countSort(arr);
 				break;
 				case 7: sort.shellSort(arr);
+				break;
+				case 8: sort.radixSort(arr);
+				break;
+				case 9: sort.mergeSort(arr, 0 , arr.length - 1);
 				break;
 				default : System.out.println("Invalid choice");
 				break;

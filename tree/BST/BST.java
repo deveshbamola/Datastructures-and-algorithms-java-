@@ -51,6 +51,33 @@ public class BST {
         return result;
     }
 
+    public void printInorder(Node node) {
+        if(node == null)
+            return;
+
+        printInorder(node.left);
+        System.out.println(node.data + " ");
+        printInorder(node.right);
+    }
+
+    public void printPreorder(Node node) {
+        if(node == null)
+            return;
+
+        System.out.println(node.data + " ");
+        printPreorder(node.left);
+        printPreorder(node.right);
+    }
+
+    public void printPostorder(Node node) {
+        if(node == null)
+            return;
+
+        printPostorder(node.left);
+        printPostorder(node.right);
+        System.out.println(node.data + " ");
+    }
+
     public void print(Node node) {
         if(node != null) {
             System.out.println("Node value is: " + node.data);
@@ -89,6 +116,15 @@ public class BST {
         root = bst.delete(root, 12);
         System.out.println("************** After deletion *************");
         bst.print(root);
+
+        System.out.println("Inorder: ");
+        bst.printInorder(root);
+
+        System.out.println("Postorder: ");
+        bst.printPostorder(root);
+
+        System.out.println("Preorder: ");
+        bst.printPreorder(root);
     }
 }
 

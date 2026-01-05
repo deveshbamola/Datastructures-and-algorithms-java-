@@ -1,5 +1,9 @@
 package easy;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Longest_subarray_with_sum_k {
 //    int l[] = {5,2,2,5,1,1,1,1,-9};
 //int l[] = {1, -1, 5, -2, 3};
@@ -29,7 +33,26 @@ public class Longest_subarray_with_sum_k {
     }
 
     //
-    public static void longest_subarray_with_sum_k_intution(int[] arr, int k) {
+    public static int longest_subarray_with_sum_k_intution(int[] arr, int k) {
+        Map<Integer, Integer> indexPrefixSum = new HashMap<>();
+        int prefixSum = 0, max=0;
+        for (int i = 0; i < arr.length; i++) {
+            prefixSum+=arr[i];
 
+            if(indexPrefixSum.containsKey(prefixSum-k)){
+                max = Math.max(i-indexPrefixSum.get(prefixSum-k),max);
+            }
+
+            if (!indexPrefixSum.containsKey(prefixSum)){
+                indexPrefixSum.put(prefixSum, i);
+            }
+
+            if (prefixSum == k) {
+                max = Math.max(max, i + 1);
+            }
+
+        }
+
+        return max;
     }
 }

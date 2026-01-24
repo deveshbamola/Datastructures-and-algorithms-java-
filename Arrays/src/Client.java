@@ -1,8 +1,7 @@
 import easy.Longest_subarray_with_sum_k;
 import easy.MoveAllZeroesToEnd;
 import easy.rotate_arrays_by_k_elements;
-import medium.MajorityElement;
-import medium.Sort_array_of_0_1_2s;
+import medium.*;
 
 import java.util.Arrays;
 
@@ -27,5 +26,22 @@ public class Client {
 
         int majority_element[] = {7, 0, 0, 1, 7, 7, 2, 7, 7};
         System.out.println(MajorityElement.majorityElement(majority_element));
+
+        int kadane[] = {-2, 1, -3, 4, -1, 2, 1, -5, 4 };
+        Kadane_algorithm.printMaxSubarray(kadane);
+
+        int rearrange[] = {1,2,-4,-5};
+        System.out.println(Arrays.toString(Rearrange_Array_Elements_by_Sign.rearrangeArrayEleBySign(rearrange)));
+
+//        int stockBuyAndSell[] = {7,1,5,3,6,4};
+        int stockBuyAndSell[] = {7,6,4,3,1};
+        System.out.println(StocckBuyAndSell.two_pointer(stockBuyAndSell));
+
+//        int nextPermutation[] = {1,3,2};
+        int nextPermutation[] = {1, 2, 7, 4, 3, 1};
+
+        NextPermutation.optimalSolution_twoPointer(nextPermutation);
+
+        System.out.println(Arrays.toString(nextPermutation));
     }
 }
